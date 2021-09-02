@@ -2,12 +2,16 @@
 import express from "express";
 import dotenv from "dotenv";
 
+// MongoDB connection
+import connectDB from "./config/db.js";
+
 // Data imports for testing purposes
 import products from "./data/products.js";
 
 // Set up the API and environment variables
-const app = express();
 dotenv.config();
+connectDB();
+const app = express();
 
 // ----BEGIN ENDPOINTS----
 
