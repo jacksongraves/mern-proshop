@@ -1,6 +1,7 @@
 // Node.js modules for server setup
 import express from "express";
 import dotenv from "dotenv";
+import colors from "colors";
 
 // MongoDB connection
 import connectDB from "./config/db.js";

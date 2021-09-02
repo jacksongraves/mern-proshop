@@ -1,6 +1,6 @@
 const products = [
 	{
-		_id: "b222e793-c04e-41dd-8d96-0822f77c609c",
+		// _id: "b222e793-c04e-41dd-8d96-0822f77c609c",
 		name: "Airpods Wireless Bluetooth Headphones",
 		image: "/images/airpods.jpg",
 		description:
@@ -13,7 +13,7 @@ const products = [
 		numReviews: 12344,
 	},
 	{
-		_id: "5deb3693-e3da-4741-bcaa-5b645020829d",
+		// _id: "5deb3693-e3da-4741-bcaa-5b645020829d",
 		name: "iPhone 11 Pro 256GB Memory",
 		image: "/images/phone.jpg",
 		description:
@@ -26,7 +26,7 @@ const products = [
 		numReviews: 1234,
 	},
 	{
-		_id: "bdb99ff5-50ca-48c5-b0b1-a5ea0fd0cf8f",
+		// _id: "bdb99ff5-50ca-48c5-b0b1-a5ea0fd0cf8f",
 		name: "Cannon EOS 80D DSLR Camera",
 		image: "/images/camera.jpg",
 		description:
@@ -39,7 +39,7 @@ const products = [
 		numReviews: 1234,
 	},
 	{
-		_id: "9dd2a54a-9db7-4471-982b-f19a4b2a1897",
+		// _id: "9dd2a54a-9db7-4471-982b-f19a4b2a1897",
 		name: "Sony Playstation 4 Pro White Version",
 		image: "/images/playstation.jpg",
 		description:
@@ -52,7 +52,7 @@ const products = [
 		numReviews: 1234,
 	},
 	{
-		_id: "ae4784eb-cb8c-4fde-849a-15b5e8e96c28",
+		// _id: "ae4784eb-cb8c-4fde-849a-15b5e8e96c28",
 		name: "Logitech G-Series Gaming Mouse",
 		image: "/images/mouse.jpg",
 		description:
@@ -65,7 +65,7 @@ const products = [
 		numReviews: 2,
 	},
 	{
-		_id: "c836510a-5b00-4b12-9117-fffebf54e3a6",
+		// _id: "c836510a-5b00-4b12-9117-fffebf54e3a6",
 		name: "Amazon Echo Dot 3rd Generation",
 		image: "/images/alexa.jpg",
 		description:
