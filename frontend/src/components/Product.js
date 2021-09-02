@@ -10,6 +10,9 @@ import { Card } from "react-bootstrap";
 // TODO: Modify import based on actual filestructure
 // import {  } from '****/actions/';
 
+// Component Imports
+import Rating from "./Rating";
+
 const Product = ({ product }) => {
 	// Assign state on a per-object basis
 	const [obj, setObj] = useState(null);
@@ -31,9 +34,10 @@ const Product = ({ product }) => {
 					</Card.Title>
 				</a>
 				<Card.Text as='div'>
-					<div className='my-3'>
-						{product.rating} from {product.numReviews} reviews
-					</div>
+					<Rating
+						value={product.rating}
+						text={`${product.numReviews} reviews`}
+					/>
 				</Card.Text>
 				<Card.Text as='h3'>${product.price}</Card.Text>
 			</Card.Body>

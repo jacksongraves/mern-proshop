@@ -1,7 +1,7 @@
 // React Imports
 import React, { Fragment, useState, useEffect } from "react";
-import { Router, Route, Link, Switch } from "react-router-dom";
-import PropTypes from "prop-types";
+// import { Router, Route, Link, Switch } from "react-router-dom";
+// import PropTypes from "prop-types";
 
 // Redux Imports
 import { connect } from "react-redux";
@@ -18,19 +18,19 @@ import Product from "../components/Product";
 
 const HomeScreen = ({}) => {
 	// Assign state on a per-object basis
-	const [obj, setObj] = useState(null);
+	// const [obj, setObj] = useState(null);
 
 	//TODO: If desired, destructure any state variables for ease of access
 
 	// Run any setup code or per-render effects
-	useEffect(() => {}, []);
+	// useEffect(() => {}, []);
 
 	return (
 		<Fragment>
 			<h1>Latest Products</h1>
 			<Row>
 				{products.map((product) => (
-					<Col sm={12} md={6} lg={4} xl={3}>
+					<Col key={product._id} sm={12} md={6} lg={4} xl={3}>
 						<Product product={product} />
 					</Col>
 				))}
