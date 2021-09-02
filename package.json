@@ -1,0 +1,22 @@
+{
+	"name": "mern-proshop",
+	"version": "1.0.0",
+	"description": "Udemy course, MERN Shopping Cart App",
+	"main": "server.js",
+	"scripts": {
+		"start": "node backend/server"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jacksongraves/mern-proshop.git"
+	},
+	"author": "Jackson Graves via Brad Traversy",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/jacksongraves/mern-proshop/issues"
+	},
+	"homepage": "https://github.com/jacksongraves/mern-proshop#readme",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
+}
