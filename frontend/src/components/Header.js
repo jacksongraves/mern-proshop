@@ -8,7 +8,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 
 // Redux Imports
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+// import { Field, reduxForm } from "redux-form";
 // TODO: Modify import based on actual filestructure
 // import {  } from '****/actions/';
 
