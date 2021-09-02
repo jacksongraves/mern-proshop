@@ -11,23 +11,33 @@ import { connect } from "react-redux";
 // Bootstrap Imports
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 
+// Other Useful (API) imports
+import axios from "axios";
+
 // Component Imports
 import Rating from "../components/Rating";
 
-// Data Imports
-import products from "../products";
+// Data Imports: Redundant due to backend serving data
+// import products from "../products";
 
 const ProductScreen = ({ match }) => {
 	// TODO: Assign state on a per-object basis
-	const [obj, setObj] = useState(null);
-
-	const product = products.find((p) => p._id === match.params.id);
-	console.log(product);
+	const [product, setProduct] = useState({});
 
 	// TODO: If desired, destructure any state variables for ease of access
 
 	// Run any setup code or per-render effects
-	useEffect(() => {}, []);
+	useEffect(() => {
+		// Preload all products from the API when loading the component
+		const fetchProduct = async () => {
+			// Note: destructuring response into { data } could cause an error if we get a non-200 HTTP response
+			const { data } = await axios.get(`/api/products/${match.params.id}`);
+
+			setProduct(data);
+		};
+
+		fetchProduct();
+	}, []);
 
 	return (
 		<Fragment>

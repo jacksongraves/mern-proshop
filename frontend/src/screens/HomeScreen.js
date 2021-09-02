@@ -9,21 +9,37 @@ import { connect } from "react-redux";
 // TODO: Modify import based on actual filestructure
 // import {  } from '****/actions/';
 
-// react-boostrap imports
+// react-bootstrap imports
 import { Row, Col } from "react-bootstrap";
 
-// Component and Data imports
-import products from "../products";
+// Other Useful (API) imports
+import axios from "axios";
+
+// Component Imports
 import Product from "../components/Product";
+
+// Data Imports: Redundant due to backend serving data
+import products from "../products";
 
 const HomeScreen = ({}) => {
 	// Assign state on a per-object basis
-	// const [obj, setObj] = useState(null);
+	const [products, setProducts] = useState([]);
 
 	//TODO: If desired, destructure any state variables for ease of access
 
 	// Run any setup code or per-render effects
-	// useEffect(() => {}, []);
+	useEffect(() => {
+		// Preload all products from the API when loading the component
+		// Note: Because we haven't yet integrated global state with Redux, this gets called every time we backtrack from a ProductScreen
+		const fetchProducts = async () => {
+			// Note: destructuring response into { data } could cause an error if we get a non-200 HTTP response
+			const { data } = await axios.get("/api/products");
+
+			setProducts(data);
+		};
+
+		fetchProducts();
+	}, []);
 
 	return (
 		<Fragment>
