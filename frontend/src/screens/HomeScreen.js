@@ -17,7 +17,8 @@ import axios from "axios";
 
 // Component Imports
 import Product from "../components/Product";
-
+import Message from "../components/Message";
+import Loader from "../components/Loader";
 // Data Imports: Redundant due to backend serving data
 import products from "../products";
 
@@ -39,16 +40,19 @@ const HomeScreen = ({}) => {
 		<Fragment>
 			<h1>Latest Products</h1>
 			{loading ? (
-				<h1>LOADING</h1>
+				<Loader />
 			) : error ? (
-				<h1>{error}</h1>
+				<Message variant='danger'>{error}</Message>
 			) : (
 				<Row>
-					{products.map((product) => (
-						<Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-							<Product product={product} />
-						</Col>
-					))}
+					{products.map((product) => {
+						console.log(product);
+						return (
+							<Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+								<Product product={product} />
+							</Col>
+						);
+					})}
 				</Row>
 			)}
 		</Fragment>
@@ -60,13 +64,14 @@ HomeScreen.propTypes = {
 	// :
 };
 
-// TODO: Update with appropriate state mapping
-const mapStateToProps = (state) => ({
-	// : state.
-});
+// // TODO: Update with appropriate state mapping
+// const mapStateToProps = (state) => ({
+// 	// : state.
+// });
 
-// TODO: Add any actions to the dispatch to ensure that Redux state updates can be accessed by the com
-const mapDispatchToProps = {};
+// // TODO: Add any actions to the dispatch to ensure that Redux state updates can be accessed by the com
+// const mapDispatchToProps = {};
 
 // Connect the Redux store to the HomeScreen component
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+// export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreen;

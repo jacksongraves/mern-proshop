@@ -4,7 +4,7 @@ import { Router, Route, Link, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // Redux Imports
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { Field, reduxForm } from 'redux-form';
 // import {  } from '../actions/';
 
@@ -16,87 +16,93 @@ import axios from "axios";
 
 // Component Imports
 import Rating from "../components/Rating";
+import Message from "../components/Message";
+import Loader from "../components/Loader";
+
+import { listProductDetails } from "../actions/productActions";
 
 // Data Imports: Redundant due to backend serving data
 // import products from "../products";
 
 const ProductScreen = ({ match }) => {
-	// TODO: Assign state on a per-object basis
-	const [product, setProduct] = useState({});
+	const dispatch = useDispatch();
 
-	// TODO: If desired, destructure any state variables for ease of access
+	// Destructure any state variables for ease of access
+	const productDetails = useSelector((state) => state.productDetails);
+	const { loading, error, product } = productDetails;
 
 	// Run any setup code or per-render effects
 	useEffect(() => {
-		// Preload all products from the API when loading the component
-		const fetchProduct = async () => {
-			// Note: destructuring response into { data } could cause an error if we get a non-200 HTTP response
-			const { data } = await axios.get(`/api/products/${match.params.id}`);
-
-			setProduct(data);
-		};
-
-		fetchProduct();
-	}, []);
+		console.log(match.params.id);
+		dispatch(listProductDetails(match.params.id));
+	}, [match]);
 
 	return (
 		<Fragment>
 			<Link className='btn btn-dark my-3' to='/'>
 				Go Back
 			</Link>
-			<Row>
-				<Col md={6}>
-					<Image src={product.image} alt={product.name} />
-				</Col>
-				<Col md={3}>
-					<ListGroup variant='flush'>
-						<ListGroup.Item>
-							<h3>{product.name}</h3>
-						</ListGroup.Item>
-						<ListGroup.Item>
-							<Rating
-								value={product.rating}
-								text={`${product.numReviews} reviews`}
-							/>
-						</ListGroup.Item>
-						<ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-						<ListGroup.Item>Description: {product.description}</ListGroup.Item>
-					</ListGroup>
-				</Col>
-				<Col md={3}>
-					<Card>
+			{loading ? (
+				<Loader />
+			) : error ? (
+				<Message variant='danger'>{error}</Message>
+			) : (
+				<Row>
+					<Col md={6}>
+						<Image src={product.image} alt={product.name} />
+					</Col>
+					<Col md={3}>
 						<ListGroup variant='flush'>
 							<ListGroup.Item>
-								<Row>
-									<Col>Price:</Col>
-									<Col>
-										<strong>${product.price}</strong>
-									</Col>
-								</Row>
+								<h3>{product.name}</h3>
 							</ListGroup.Item>
 							<ListGroup.Item>
-								<Row>
-									<Col>Status:</Col>
-									<Col>
-										<strong>
-											{product.countInStock > 0 ? "In Stock" : "Out of Stock"}
-										</strong>
-									</Col>
-								</Row>
+								<Rating
+									value={product.rating}
+									text={`${product.numReviews} reviews`}
+								/>
 							</ListGroup.Item>
+							<ListGroup.Item>Price: ${product.price}</ListGroup.Item>
 							<ListGroup.Item>
-								<Button
-									className='btn-block'
-									type='button'
-									disabled={product.countInStock <= 0}
-								>
-									Add to Cart
-								</Button>
+								Description: {product.description}
 							</ListGroup.Item>
 						</ListGroup>
-					</Card>
-				</Col>
-			</Row>
+					</Col>
+					<Col md={3}>
+						<Card>
+							<ListGroup variant='flush'>
+								<ListGroup.Item>
+									<Row>
+										<Col>Price:</Col>
+										<Col>
+											<strong>${product.price}</strong>
+										</Col>
+									</Row>
+								</ListGroup.Item>
+								<ListGroup.Item>
+									<Row>
+										<Col>Status:</Col>
+										<Col>
+											<strong>
+												{product.countInStock > 0 ? "In Stock" : "Out of Stock"}
+											</strong>
+										</Col>
+									</Row>
+								</ListGroup.Item>
+								<ListGroup.Item>
+									<Button
+										className='btn-block'
+										type='button'
+										disabled={product.countInStock <= 0}
+									>
+										Add to Cart
+									</Button>
+								</ListGroup.Item>
+							</ListGroup>
+						</Card>
+					</Col>
+				</Row>
+			)}
 		</Fragment>
 	);
 };
@@ -111,15 +117,5 @@ ProductScreen.propTypes = {
 	// :
 };
 
-// TODO: Update with appropriate state mapping
-const mapStateToProps = (state) => ({
-	// : state.
-});
-
-// TODO: Add any actions to the dispatch to ensure that Redux state updates can be accessed by the com
-const mapDispatchToProps = {
-	//
-};
-
 // Connect the Redux store to the ProductScreen component
-export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen);
+export default ProductScreen;
