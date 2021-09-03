@@ -6,8 +6,9 @@ import colors from "colors";
 // MongoDB connection
 import connectDB from "./config/db.js";
 
-// Route imports
+// Route & middleware imports
 import productRoutes from "./routes/productRoutes.js";
+import { errorHandler, notFoundHandler } from "./middleware/errorMiddleware.js";
 
 // Set up the API and environment variables
 dotenv.config();
@@ -23,6 +24,10 @@ app.get("/", (req, res) => {
 
 // Initialize Route Families
 app.use("/api/products", productRoutes);
+
+// Specify middleware for global not found (404) and other error handling
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 // ----END ENDPOINTS----
 
