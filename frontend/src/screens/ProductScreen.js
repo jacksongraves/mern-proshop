@@ -34,7 +34,7 @@ import { listProductDetails } from "../actions/productActions";
 // import products from "../products";
 
 const ProductScreen = ({ match, history }) => {
-	const [qty, setQty] = useState(0);
+	const [qty, setQty] = useState(1);
 
 	const dispatch = useDispatch();
 
