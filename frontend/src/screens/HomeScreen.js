@@ -4,10 +4,10 @@ import React, { Fragment, useState, useEffect } from "react";
 // import PropTypes from "prop-types";
 
 // Redux Imports
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 // import { Field, reduxForm } from 'redux-form';
 // TODO: Modify import based on actual filestructure
-// import {  } from '****/actions/';
+import { listProducts } from "../actions/productActions";
 
 // react-bootstrap imports
 import { Row, Col } from "react-bootstrap";
@@ -22,35 +22,35 @@ import Product from "../components/Product";
 import products from "../products";
 
 const HomeScreen = ({}) => {
-	// Assign state on a per-object basis
-	const [products, setProducts] = useState([]);
+	// Make use of the Redux dispatch and global store
+	const dispatch = useDispatch();
 
 	//TODO: If desired, destructure any state variables for ease of access
+	const productList = useSelector((state) => state.productList);
+	const { loading, error, products } = productList;
 
 	// Run any setup code or per-render effects
 	useEffect(() => {
-		// Preload all products from the API when loading the component
-		// Note: Because we haven't yet integrated global state with Redux, this gets called every time we backtrack from a ProductScreen
-		const fetchProducts = async () => {
-			// Note: destructuring response into { data } could cause an error if we get a non-200 HTTP response
-			const { data } = await axios.get("/api/products");
-
-			setProducts(data);
-		};
-
-		fetchProducts();
-	}, []);
+		// Preload all products from the API when loading the component via Redux
+		dispatch(listProducts());
+	}, [dispatch]);
 
 	return (
 		<Fragment>
 			<h1>Latest Products</h1>
-			<Row>
-				{products.map((product) => (
-					<Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-						<Product product={product} />
-					</Col>
-				))}
-			</Row>
+			{loading ? (
+				<h1>LOADING</h1>
+			) : error ? (
+				<h1>{error}</h1>
+			) : (
+				<Row>
+					{products.map((product) => (
+						<Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+							<Product product={product} />
+						</Col>
+					))}
+				</Row>
+			)}
 		</Fragment>
 	);
 };
