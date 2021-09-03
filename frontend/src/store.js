@@ -4,7 +4,17 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 // import setAuthToken from "./utils/setAuthToken";
 
-const initialState = {};
+// Grab some localStorage preloads for the initial state
+const cartItemsFromStorage = localStorage.getItem("cartItems")
+	? JSON.parse(localStorage.getItem("cartItems"))
+	: [];
+
+// Assign an initial state with some preloaded variables if available, localStorage, cookies, etc.
+const initialState = {
+	cart: {
+		cartItems: cartItemsFromStorage,
+	},
+};
 
 const middleware = [thunk];
 

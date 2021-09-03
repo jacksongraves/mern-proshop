@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { cartReducer } from "./cartReducers";
 
 import { productListReducer, productDetailsReducer } from "./productReducers";
 // import alert from "./alert";
@@ -10,4 +11,5 @@ export default combineReducers({
 	// profile,
 	productList: productListReducer,
 	productDetails: productDetailsReducer,
+	cart: cartReducer,
 });
