@@ -43,13 +43,19 @@ export const addToCart =
 	};
 
 // TODO: Comments
-export const removeFromCart = (params) => async (dispatch, getState) => {
-	// const { stateParam } = getState().stateParam;
-	// TODO: Modify with the correct endpoint
-	// const response = await axios.get('/endpoint', { ...params, /* TODO */ });
-	// TODO: Apply any transformations
-	dispatch({ type: CART_REMOVE_ITEM, payload: {} });
+export const removeItemFromCart =
+	({ id }) =>
+	async (dispatch, getState) => {
+		// const { stateParam } = getState().stateParam;
+		// TODO: Modify with the correct endpoint
+		// const response = await axios.get('/endpoint', { ...params, /* TODO */ });
+		// TODO: Apply any transformations
+		dispatch({ type: CART_REMOVE_ITEM, payload: id });
 
-	// TODO: If using a history or redirects, apply it here
-	// history.push('/');
-};
+		// TODO: If using a history or redirects, apply it here
+		// history.push('/');
+		localStorage.setItem(
+			"cartItems",
+			JSON.stringify(getState().cart.cartItems)
+		);
+	};

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 // Redux Imports
 import { useDispatch, useSelector } from "react-redux";
 // import { Field, reduxForm } from 'redux-form';
-import { addToCart } from "../actions/cartActions";
+import { addToCart, removeItemFromCart } from "../actions/cartActions";
 
 // Bootstrap Imports
 import {
@@ -42,7 +42,8 @@ const CartScreen = ({ match, location, history }) => {
 	}, [productId, qty]);
 
 	const removeFromCartHandler = (id) => {
-		console.log(`REMOVE ID ${id}`);
+		// console.log(`REMOVE ID ${id}`);/
+		dispatch(removeItemFromCart({ id }));
 	};
 
 	const checkoutHandler = () => {
