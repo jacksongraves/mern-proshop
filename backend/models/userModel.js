@@ -27,6 +27,15 @@ const userSchema = mongoose.Schema(
 	}
 );
 
+// Adds a middleware to hash / encrypt a plaintext password (either on creation or modification e.g., user changes password).
+userSchema.pre("save", async function (next) {
+	if (!this.isModified("password")) {
+		next();
+	}
+	const salt = await bcrypt.genSalt(10);
+	this.password = await bcrypt.hash(this.password, salt);
+});
+
 // Add a method to the userSchema that uses bcrypt to validate if a plaintext password matches the password hash from the database
 userSchema.methods.matchPassword = async function (enteredPassword) {
 	return await bcrypt.compare(enteredPassword, this.password);
