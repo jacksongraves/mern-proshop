@@ -10,6 +10,7 @@ import Product from "../models/productModel.js";
 // GET all products
 // Controller for /api/products/ route
 const getProducts = asyncHandler(async (req, res) => {
+	console.log(req.body);
 	const products = await Product.find({});
 	res.json(products);
 });

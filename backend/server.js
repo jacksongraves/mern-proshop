@@ -8,12 +8,17 @@ import connectDB from "./config/db.js";
 
 // Route & middleware imports
 import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorMiddleware.js";
 
 // Set up the API and environment variables
 dotenv.config();
 connectDB();
 const app = express();
+
+// For some reason, we're having difficulty extracting JSON body information from requests. This middleware is a workaround to allow us to call req.body
+app.use(express.json());
+app.use(express.urlencoded());
 
 // ----BEGIN ENDPOINTS----
 
@@ -24,6 +29,7 @@ app.get("/", (req, res) => {
 
 // Initialize Route Families
 app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
 
 // Specify middleware for global not found (404) and other error handling
 app.use(notFoundHandler);
