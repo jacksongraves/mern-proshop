@@ -11,7 +11,7 @@ const protect = asyncHandler(async (req, res, next) => {
 			token = req.headers.authorization.split(" ")[1];
 			const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-			// Could this be a load imbalance here? We might be calling the database A LOT if we do this.
+			// Could this be a load imbalance here? We might be calling the database A LOT if we do this. A better way would be to only call the user when needed during the actual request; we can simply decode the expiration & JWT_SECRET and that should be sufficient for starters.
 			req.user = await User.findById(decoded.id).select("-password");
 
 			console.log(decoded);

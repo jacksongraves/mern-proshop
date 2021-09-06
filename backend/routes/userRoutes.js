@@ -5,6 +5,7 @@ import {
 	authUser,
 	getUserProfile,
 	registerUser,
+	updateUserProfile,
 } from "../controllers/userControllers.js";
 
 // Authentication middleware
@@ -25,7 +26,10 @@ router.route("/").post(registerUser);
 // POST Login the user
 router.route("/login").post(authUser);
 
-// GET user profile
-router.route("/profile").get(protect, getUserProfile);
+// User profile: Both a GET & a PUT request handler
+router
+	.route("/profile")
+	.get(protect, getUserProfile)
+	.put(protect, updateUserProfile);
 
 export default router;
