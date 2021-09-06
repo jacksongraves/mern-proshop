@@ -9,6 +9,7 @@ const cartItemsFromStorage = localStorage.getItem("cartItems")
 	? JSON.parse(localStorage.getItem("cartItems"))
 	: [];
 
+console.log(cartItemsFromStorage);
 const userInfoFromStorage = localStorage.getItem("userInfo")
 	? JSON.parse(localStorage.getItem("userInfo"))
 	: null;
@@ -17,11 +18,15 @@ const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
 	? JSON.parse(localStorage.getItem("shippingAddress"))
 	: {};
 
+/** @todo MAJOR SECURITY RISK */
+const paymentMethodFromStorage = localStorage.getItem("paymentMethod") || "";
+
 // Assign an initial state with some preloaded variables if available, localStorage, cookies, etc.
 const initialState = {
 	cart: {
 		cartItems: cartItemsFromStorage,
 		shippingAddress: shippingAddressFromStorage,
+		paymentMethod: paymentMethodFromStorage,
 	},
 	userLogin: {
 		userInfo: userInfoFromStorage,

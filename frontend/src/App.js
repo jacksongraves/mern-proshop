@@ -20,6 +20,7 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen";
 
 // Functional arrow component setup
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
 				<Header />
 				<main className='py-3'>
 					<Container>
+						<Route path='/payment' exact component={PaymentScreen} />
 						<Route path='/shipping' exact component={ShippingScreen} />
 						<Route path='/profile' exact component={ProfileScreen} />
 						<Route path='/login' exact component={LoginScreen} />

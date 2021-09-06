@@ -46,8 +46,8 @@ const ShippingScreen = ({ match, location, history }) => {
 
 	return (
 		<FormContainer>
-			<h1>Shipping</h1>
 			<CheckoutSteps step1 step2 />
+			<h1>Shipping</h1>
 			{/* {message && <Message variant='danger'>{message}</Message>} */}
 			{/* {error && <Message variant='danger'>{error}</Message>} */}
 			{/* {loading && <Loader />} */}

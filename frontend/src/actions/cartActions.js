@@ -5,6 +5,7 @@ import axios from "axios";
 import {
 	CART_ADD_ITEM,
 	CART_REMOVE_ITEM,
+	CART_SAVE_PAYMENT_METHOD,
 	CART_SAVE_SHIPPING_ADDRESS,
 } from "./types.js";
 
@@ -33,10 +34,12 @@ export const addToCart =
 			});
 
 			// We want to persist the cart somewhat, so write it to localStorage
-			localStorage.setItems(
+			console.log(getState().cart.cartItems);
+			localStorage.setItem(
 				"cartItems",
 				JSON.stringify(getState().cart.cartItems)
 			);
+			console.log(JSON.parse(localStorage.getItem("cartItems")));
 		} catch (error) {
 			// Dispatch an error message
 			// dispatch({
@@ -72,4 +75,15 @@ export const saveShippingAddress = (data) => async (dispatch, getState) => {
 	// TODO: If using a history or redirects, apply it here
 	// history.push('/');
 	localStorage.setItem("shippingAddress", JSON.stringify(data));
+};
+
+// TODO: Comments
+export const savePaymentMethod = (data) => async (dispatch, getState) => {
+	// TODO: Apply any transformations
+	dispatch({ type: CART_SAVE_PAYMENT_METHOD, payload: data });
+
+	/**
+	 * @todo Major security risk!!!
+	 */
+	localStorage.setItem("paymentMethod", JSON.stringify(data));
 };
