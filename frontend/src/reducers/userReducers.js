@@ -3,14 +3,12 @@ import {
 	USER_LOGIN_SUCCESS,
 	USER_LOGIN_FAIL,
 	USER_LOGOUT,
+	USER_REGISTER_REQUEST,
+	USER_REGISTER_SUCCESS,
+	USER_REGISTER_FAIL,
 } from "../actions/types";
 
-export const userLoginReducer = (
-	state = {
-		products: [],
-	},
-	{ type, payload }
-) => {
+export const userLoginReducer = (state = {}, { type, payload }) => {
 	switch (type) {
 		case USER_LOGIN_REQUEST:
 			return { loading: true };
@@ -25,17 +23,14 @@ export const userLoginReducer = (
 	}
 };
 
-export const userLogoutReducer = (
-	state = {
-		product: {
-			reviews: [],
-		},
-	},
-	{ type, payload }
-) => {
+export const userRegisterReducer = (state = {}, { type, payload }) => {
 	switch (type) {
-		case USER_LOGOUT:
-			return {};
+		case USER_REGISTER_REQUEST:
+			return { loading: true };
+		case USER_REGISTER_SUCCESS:
+			return { ...state, loading: false, userInfo: payload };
+		case USER_REGISTER_FAIL:
+			return { ...state, loading: false, error: payload };
 		default:
 			return state;
 	}

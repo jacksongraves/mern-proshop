@@ -7,6 +7,9 @@ import {
 	USER_LOGIN_SUCCESS,
 	USER_LOGIN_FAIL,
 	USER_LOGOUT,
+	USER_REGISTER_REQUEST,
+	USER_REGISTER_SUCCESS,
+	USER_REGISTER_FAIL,
 } from "./types.js";
 
 // TODO: Comments
@@ -32,7 +35,7 @@ export const login =
 			// Dispatch a successful request
 			dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-			localStorage.setItem("userInfo", data);
+			localStorage.setItem("userInfo", JSON.stringify(data));
 		} catch (error) {
 			// Dispatch an error message
 			dispatch({
@@ -46,3 +49,36 @@ export const logout = () => async (dispatch, getState) => {
 	localStorage.removeItem("userInfo");
 	dispatch({ type: USER_LOGOUT });
 };
+
+export const register =
+	({ name, email, password }) =>
+	async (dispatch, getState) => {
+		try {
+			// Flag that we are making a request
+			dispatch({ type: USER_REGISTER_REQUEST });
+
+			const config = {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			};
+			// Make the request
+			const { data } = await axios.post(
+				"/api/users",
+				{ name, email, password },
+				config
+			);
+
+			// Dispatch a successful request
+			dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+			dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
+			localStorage.setItem("userInfo", JSON.stringify(data));
+		} catch (error) {
+			// Dispatch an error message
+			dispatch({
+				type: USER_REGISTER_FAIL,
+				payload: error?.response?.data?.message || error?.message || error,
+			});
+		}
+	};
