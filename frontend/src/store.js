@@ -8,11 +8,17 @@ import rootReducer from "./reducers";
 const cartItemsFromStorage = localStorage.getItem("cartItems")
 	? JSON.parse(localStorage.getItem("cartItems"))
 	: [];
+const userInfoFromStorage = localStorage.getItem("userInfo")
+	? JSON.parse(localStorage.getItem("userInfo"))
+	: null;
 
 // Assign an initial state with some preloaded variables if available, localStorage, cookies, etc.
 const initialState = {
 	cart: {
 		cartItems: cartItemsFromStorage,
+	},
+	userLogin: {
+		userInfo: userInfoFromStorage,
 	},
 };
 
