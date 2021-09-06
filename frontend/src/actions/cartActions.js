@@ -2,7 +2,11 @@
 import axios from "axios";
 
 // Constants for Redux
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "./types.js";
+import {
+	CART_ADD_ITEM,
+	CART_REMOVE_ITEM,
+	CART_SAVE_SHIPPING_ADDRESS,
+} from "./types.js";
 
 // TODO: Comments
 export const addToCart =
@@ -59,3 +63,13 @@ export const removeItemFromCart =
 			JSON.stringify(getState().cart.cartItems)
 		);
 	};
+
+// TODO: Comments
+export const saveShippingAddress = (data) => async (dispatch, getState) => {
+	// TODO: Apply any transformations
+	dispatch({ type: CART_SAVE_SHIPPING_ADDRESS, payload: data });
+
+	// TODO: If using a history or redirects, apply it here
+	// history.push('/');
+	localStorage.setItem("shippingAddress", JSON.stringify(data));
+};
