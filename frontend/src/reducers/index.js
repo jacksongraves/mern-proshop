@@ -6,6 +6,7 @@ import {
 	userLoginReducer,
 	userRegisterReducer,
 	userDetailsReducer,
+	userUpdateProfileReducer,
 } from "./userReducers";
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
 	userLogin: userLoginReducer,
 	userRegister: userRegisterReducer,
 	userDetails: userDetailsReducer,
+	userUpdateProfile: userUpdateProfileReducer,
 });

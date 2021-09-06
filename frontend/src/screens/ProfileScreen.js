@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 // Redux Imports
 import { useDispatch, useSelector } from "react-redux";
 // import { Field, reduxForm } from 'redux-form';
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUserProfile } from "../actions/userActions";
 
 // Bootstrap Imports
 import { Form, Button, Row, Col } from "react-bootstrap";
@@ -30,6 +30,7 @@ const ProfileScreen = ({ match, location, history }) => {
 	// TODO: If desired, destructure any state variables for ease of access
 	const { loading, error, user } = useSelector((state) => state.userDetails);
 	const { userInfo } = useSelector((state) => state.userLogin);
+	const { success } = useSelector((state) => state.userUpdateProfile);
 
 	// Run any setup code or per-render effects
 	useEffect(() => {
@@ -50,8 +51,7 @@ const ProfileScreen = ({ match, location, history }) => {
 		if (password !== confirmPassword) {
 			setMessage("Passwords do not match");
 		} else {
-			// @todo
-			// dispatch(register({ name, email, password }));
+			dispatch(updateUserProfile({ id: user._id, name, email, password }));
 		}
 	};
 
@@ -61,6 +61,7 @@ const ProfileScreen = ({ match, location, history }) => {
 				<h1>Sign Up</h1>
 				{message && <Message variant='danger'>{message}</Message>}
 				{error && <Message variant='danger'>{error}</Message>}
+				{success && <Message variant='success'>Profile Updated</Message>}
 				{loading && <Loader />}
 				<Form onSubmit={submitHandler}>
 					<Form.Group controlId='name'>
