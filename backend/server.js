@@ -7,6 +7,7 @@ import colors from "colors";
 import connectDB from "./config/db.js";
 
 // Route & middleware imports
+import orderRoutes from "./routes/orderRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorMiddleware.js";
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 // Initialize Route Families
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Specify middleware for global not found (404) and other error handling
 app.use(notFoundHandler);
