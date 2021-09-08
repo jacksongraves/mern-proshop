@@ -5,13 +5,15 @@ import PropTypes from "prop-types";
 
 // Redux Imports
 import { useDispatch, useSelector } from "react-redux";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 // import { Field, reduxForm } from 'redux-form';
 // import {  } from '../actions/';
 
 // Component Imports
-// import Component from './Component';
+import Message from "../components/Message";
+import Loader from "../components/Loader";
+import { listUsers } from "../actions/userActions";
 
 const UserListScreen = ({ match, location, history }) => {
 	// TODO: Assign state on a per-object basis
@@ -19,11 +21,17 @@ const UserListScreen = ({ match, location, history }) => {
 
 	// TODO: If desired, destructure any state variables for ease of access
 	const { loading, error, users } = useSelector((state) => state.userList);
-
+	const { userInfo } = useSelector((state) => state.userLogin);
 	// Run any setup code or per-render effects
 	useEffect(() => {
-		dispatch(listUsers());
-	}, [users]);
+		if (userInfo?.isAdmin) {
+			dispatch(listUsers());
+		}
+	}, [dispatch, history]);
+
+	const deleteHandler = (e) => {
+		e.preventDefault();
+	};
 
 	return (
 		<>
@@ -39,9 +47,7 @@ const UserListScreen = ({ match, location, history }) => {
 							<th>ID</th>
 							<th>NAME</th>
 							<th>EMAIL</th>
-							<th>
-								<ADMIN></ADMIN>
-							</th>
+							<th>ADMIN</th>
 						</tr>
 					</thead>
 					<tbody>

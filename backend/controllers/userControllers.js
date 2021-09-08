@@ -112,7 +112,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 const getUsers = asyncHandler(async (req, res) => {
 	// Requires auth middleware - could use the decoded id though.
-	const user = await User.find({});
+	const users = await User.find({});
 	res.json(users);
 });
 export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers };
