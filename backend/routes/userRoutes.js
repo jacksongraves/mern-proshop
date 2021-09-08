@@ -4,12 +4,13 @@ import express from "express";
 import {
 	authUser,
 	getUserProfile,
+	getUsers,
 	registerUser,
 	updateUserProfile,
 } from "../controllers/userControllers.js";
 
 // Authentication middleware
-import { protect } from "../middleware/authMiddleware.js";
+import { protect, admin } from "../middleware/authMiddleware.js";
 
 // Set up our router
 const router = express.Router();
@@ -21,7 +22,7 @@ const router = express.Router();
 // Using a controller approach to endpoints, where routes can be maintained legibly and separately from the functions they call
 
 // POST Create a new profile / register a user
-router.route("/").post(registerUser);
+router.route("/").post(registerUser).get(protect, admin, getUsers);
 
 // POST Login the user
 router.route("/login").post(authUser);
