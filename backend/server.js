@@ -33,6 +33,10 @@ app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
+app.get("/api/config/paypal", (req, res) =>
+	res.send(process.env.PAYPAL_CLIENT_ID)
+);
+
 // Specify middleware for global not found (404) and other error handling
 app.use(notFoundHandler);
 app.use(errorHandler);

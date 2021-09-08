@@ -12,10 +12,12 @@ import {
 	USER_REGISTER_FAIL,
 	USER_DETAILS_REQUEST,
 	USER_DETAILS_SUCCESS,
+	USER_DETAILS_RESET,
 	USER_DETAILS_FAIL,
 	USER_UPDATE_PROFILE_SUCCESS,
 	USER_UPDATE_PROFILE_REQUEST,
 	USER_UPDATE_PROFILE_FAIL,
+	ORDER_LIST_MY_RESET,
 } from "./types.js";
 
 // TODO: Comments
@@ -54,6 +56,8 @@ export const login =
 export const logout = () => async (dispatch, getState) => {
 	localStorage.removeItem("userInfo");
 	dispatch({ type: USER_LOGOUT });
+	dispatch({ type: USER_DETAILS_RESET });
+	dispatch({ type: ORDER_LIST_MY_RESET });
 };
 
 export const register =
