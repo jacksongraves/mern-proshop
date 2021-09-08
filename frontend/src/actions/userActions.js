@@ -18,6 +18,9 @@ import {
 	USER_UPDATE_PROFILE_REQUEST,
 	USER_UPDATE_PROFILE_FAIL,
 	ORDER_LIST_MY_RESET,
+	USER_LIST_FAIL,
+	USER_LIST_SUCCESS,
+	USER_LIST_REQUEST,
 } from "./types.js";
 
 // TODO: Comments
@@ -147,6 +150,36 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 		// Dispatch an error message
 		dispatch({
 			type: USER_UPDATE_PROFILE_FAIL,
+			payload: error?.response?.data?.message || error?.message || error,
+		});
+	}
+};
+
+// @param user object
+export const listUsers = () => async (dispatch, getState) => {
+	try {
+		const {
+			userLogin: { userInfo },
+		} = getState();
+
+		// Flag that we are making a request
+		dispatch({ type: USER_LIST_REQUEST });
+
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${userInfo.token}`,
+			},
+		};
+		// Make the request
+		const { data } = await axios.get(`/api/users`, config);
+
+		// Dispatch a successful request
+		dispatch({ type: USER_LIST_SUCCESS, payload: data });
+	} catch (error) {
+		// Dispatch an error message
+		dispatch({
+			type: USER_LIST_FAIL,
 			payload: error?.response?.data?.message || error?.message || error,
 		});
 	}
