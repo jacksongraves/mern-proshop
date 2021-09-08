@@ -1,7 +1,10 @@
 // Configure express as a router for an endpoint family
 // Leverage asyncHandler middleware to better handle error management in the API
 import express from "express";
-import { addOrderItems } from "../controllers/orderControllers.js";
+import {
+	addOrderItems,
+	getOrderById,
+} from "../controllers/orderControllers.js";
 
 // Authentication middleware
 import { protect } from "../middleware/authMiddleware.js";
@@ -16,5 +19,8 @@ const router = express.Router();
 
 // Place an order
 router.route("/").post(protect, addOrderItems);
+
+// Get an order by id
+router.route("/:id").get(protect, getOrderById);
 
 export default router;
