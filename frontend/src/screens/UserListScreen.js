@@ -13,7 +13,7 @@ import { LinkContainer } from "react-router-bootstrap";
 // Component Imports
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { listUsers } from "../actions/userActions";
+import { listUsers, deleteUser } from "../actions/userActions";
 
 const UserListScreen = ({ match, location, history }) => {
 	// TODO: Assign state on a per-object basis
@@ -26,11 +26,15 @@ const UserListScreen = ({ match, location, history }) => {
 	useEffect(() => {
 		if (userInfo?.isAdmin) {
 			dispatch(listUsers());
+		} else {
+			history.push("/login");
 		}
-	}, [dispatch, history]);
+	}, [dispatch, history, userInfo]);
 
-	const deleteHandler = (e) => {
-		e.preventDefault();
+	const deleteHandler = (id) => {
+		if (window.confirm("Are you sure")) {
+			dispatch(deleteUser(id));
+		}
 	};
 
 	return (
@@ -66,7 +70,7 @@ const UserListScreen = ({ match, location, history }) => {
 									)}
 								</td>
 								<td>
-									<LinkContainer to={`/user/${user._id}/edit`}>
+									<LinkContainer to={`/admin/user/${user._id}/edit`}>
 										<Button variant='light' className='btn-sm'>
 											<i className='fas fa-edit'></i>
 										</Button>

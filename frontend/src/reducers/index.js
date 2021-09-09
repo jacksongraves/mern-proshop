@@ -8,6 +8,8 @@ import {
 	userDetailsReducer,
 	userUpdateProfileReducer,
 	userListReducer,
+	userDeleteReducer,
+	userUpdateReducer,
 } from "./userReducers";
 
 import {
@@ -30,4 +32,6 @@ export default combineReducers({
 	orderPay: orderPayReducer,
 	orderListMy: orderListMyReducer,
 	userList: userListReducer,
+	userDelete: userDeleteReducer,
+	userUpdate: userUpdateReducer,
 });

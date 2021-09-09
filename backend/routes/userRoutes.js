@@ -7,6 +7,9 @@ import {
 	getUsers,
 	registerUser,
 	updateUserProfile,
+	deleteUser,
+	updateUser,
+	getUserById,
 } from "../controllers/userControllers.js";
 
 // Authentication middleware
@@ -32,5 +35,12 @@ router
 	.route("/profile")
 	.get(protect, getUserProfile)
 	.put(protect, updateUserProfile);
+
+// Delete a user
+router
+	.route("/:id")
+	.delete(protect, admin, deleteUser)
+	.get(protect, admin, getUserById)
+	.put(protect, admin, updateUser);
 
 export default router;
